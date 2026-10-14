@@ -14,6 +14,8 @@
 <h3>
   <a href="#inicio">Início rápido</a>
   <span>&nbsp;·&nbsp;</span>
+  <a href="#como-usar">Como usar</a>
+  <span>&nbsp;·&nbsp;</span>
   <a href="#cobertura">Cobertura</a>
   <span>&nbsp;·&nbsp;</span>
   <a href="#integridade">Integridade</a>
@@ -90,10 +92,224 @@ chmod +x BrowserForensics-X.sh
 ./BrowserForensics-X.sh run -c ./casos/HOST01 -e "J. Silva" --case-id INC-2026-0042
 ```
 
+Passo a passo completo, com outros cenários (imagem de disco, pasta exportada, coleta em campo), em
+**[Como usar](#como-usar)**.
+
 > [!TIP]
 > Feche os navegadores antes de uma aquisição ao vivo. No Windows, arquivos travados por um navegador aberto
 > não podem ser copiados sem VSS. Eles são **registrados como falha, nunca ignorados em silêncio**, e o caso é
 > marcado como *parcial* (código de saída `5`).
+
+<br>
+
+<a id="como-usar"></a>
+
+## 📖 Como usar
+
+O guia abaixo vai da instalação até a entrega do caso. Se você só quer ver a ferramenta funcionando, os
+passos **1 a 3** bastam.
+
+### 1. Instalação
+
+A ferramenta é **um único arquivo**. Não há instalador nem dependências de pacotes: basta o Bash e, para a
+análise, um Python 3 comum.
+
+```bash
+# opção A — clonar o repositório
+git clone https://github.com/excanear/BrowserForensics-X.git
+cd BrowserForensics-X
+
+# opção B — baixar só o script
+curl -LO https://raw.githubusercontent.com/excanear/BrowserForensics-X/main/BrowserForensics-X.sh
+
+chmod +x BrowserForensics-X.sh
+```
+
+<table>
+<tr><th align="left">Sistema</th><th align="left">O que você precisa</th></tr>
+<tr><td><b>Linux</b></td><td>Nada além do que já vem na distribuição (Bash ≥ 4.4, coreutils, Python 3).</td></tr>
+<tr><td><b>Windows</b></td><td>
+<a href="https://git-scm.com/download/win">Git Bash</a> (ou MSYS2 / Cygwin / WSL) e o
+<a href="https://www.python.org/downloads/">Python 3</a> do python.org. O atalho <code>python3</code> da Microsoft
+Store é detectado e ignorado automaticamente. Rode o terminal <b>como administrador</b> se quiser coletar o
+Prefetch (<code>C:\Windows\Prefetch</code>).</td></tr>
+<tr><td><b>macOS</b></td><td>
+<code>brew install bash</code> (o macOS vem com o Bash 3.2) e o Python 3. Dê <b>Acesso Total ao Disco</b> ao
+app do terminal em <i>Ajustes do Sistema → Privacidade e Segurança</i>, senão os dados do Safari aparecem como
+ilegíveis. Execute com o Bash novo: <code>/opt/homebrew/bin/bash ./BrowserForensics-X.sh …</code></td></tr>
+</table>
+
+### 2. Confira o ambiente
+
+```bash
+./BrowserForensics-X.sh deps
+```
+
+O comando mostra o Bash, a ferramenta de SHA-256, o Python e os utilitários encontrados, e termina com
+**READY** (tudo disponível), **PARTIAL** (dá para adquirir e verificar, mas falta Python para analisar) ou
+**NOT READY**. Se o Python estiver num lugar incomum, indique o caminho com
+`BFX_PYTHON=/caminho/python3`.
+
+### 3. Teste a ferramenta no laboratório
+
+```bash
+./BrowserForensics-X.sh selftest
+```
+
+Isso gera um laboratório sintético (perfis de Linux, Windows e macOS, com 7 navegadores), roda o pipeline
+completo e confere 160 verificações em cerca de 2 minutos. Nenhum dado seu é tocado. Se terminar com
+**SELFTEST PASSED**, a ferramenta está funcionando nesta máquina.
+
+### 4. Escolha o cenário
+
+<details open>
+<summary><b>A) Triagem desta máquina (sistema vivo)</b></summary>
+
+```bash
+# 1) veja o que existe, sem copiar nada
+./BrowserForensics-X.sh discover
+
+# 2) feche os navegadores e rode o caso completo
+./BrowserForensics-X.sh run -c ./casos/HOST01 -e "Seu Nome" --case-id INC-2026-0042
+```
+
+- O diretório do caso (`-c`) precisa ser **novo ou vazio**. A ferramenta se recusa a misturar evidências.
+- Se algum navegador estiver aberto, você recebe um aviso. No Windows, os arquivos travados por ele não são
+  copiados: ficam registrados como falha e o caso termina como *parcial* (código `5`).
+- Para coletar só alguns navegadores, use `-b chrome,firefox`. Para pular os caches HTTP (mais rápido e
+  menor), use `--no-cache`.
+
+</details>
+
+<details>
+<summary><b>B) Imagem de disco montada (exame post-mortem)</b></summary>
+
+Monte a imagem **somente leitura** e aponte a ferramenta para a raiz montada com `--root`. Ela procura os
+usuários em `<raiz>/Users/*` (Windows e macOS), `<raiz>/home/*` e `<raiz>/root` (Linux).
+
+```bash
+# exemplo no Linux com uma imagem E01 de Windows (libewf + ntfs-3g)
+sudo ewfmount evidencia.E01 /mnt/ewf
+sudo mount -t ntfs-3g -o ro,loop,offset=$((2048*512)) /mnt/ewf/ewf1 /mnt/evidencia   # offset da partição
+
+./BrowserForensics-X.sh run --root /mnt/evidencia -c ./casos/IMG01 -e "Seu Nome" -j 4
+```
+
+- O offset depende da imagem: consulte com `mmls` (Sleuth Kit) ou `fdisk -l`.
+- Use `--deep` se suspeitar de navegadores portáteis ou instalados fora dos caminhos padrão.
+- A correlação de downloads verifica se o arquivo baixado ainda existe dentro da raiz montada e calcula o
+  hash dele.
+
+</details>
+
+<details>
+<summary><b>C) Uma pasta de perfil exportada</b></summary>
+
+Quando você recebe apenas a pasta do perfil (por exemplo `Default` do Chrome ou `xxxx.default-release` do
+Firefox):
+
+```bash
+./BrowserForensics-X.sh run -s ./recebido/Default -c ./casos/EXP01 -e "Seu Nome"
+
+# a família é detectada sozinha; force se necessário
+./BrowserForensics-X.sh run -s ./recebido/perfil -c ./casos/EXP02 --family firefox
+```
+
+</details>
+
+<details>
+<summary><b>D) Coletar em campo e analisar no laboratório</b></summary>
+
+A aquisição só precisa de Bash e coreutils, sem Python. Colete no equipamento investigado para um disco
+externo e analise depois na sua estação:
+
+```bash
+# no equipamento investigado
+./BrowserForensics-X.sh acquire -c /media/usb/CASO01 -e "Seu Nome"
+
+# na estação de análise
+./BrowserForensics-X.sh verify  -c /media/usb/CASO01      # confirme que nada mudou no transporte
+./BrowserForensics-X.sh analyze -c /media/usb/CASO01 -j 8
+./BrowserForensics-X.sh report  -c /media/usb/CASO01
+```
+
+</details>
+
+### 5. Leia os resultados
+
+Ao final do `run` aparece o painel **CASE** com o resumo, além dos caminhos para abrir o relatório e
+verificar o caso.
+
+- **`reports/report.html`** é o ponto de partida. Abre offline em qualquer navegador e tem as seções:
+  - *Summary*: o sumário executivo;
+  - *Inventory*: navegadores e perfis encontrados;
+  - *Findings*: achados ordenados por gravidade;
+  - *Timeline*: a linha do tempo, com um campo de filtro;
+  - *Artifacts*: os registros, por tipo;
+  - *Correlations*: downloads ligados ao SO e ao disco;
+  - *SQLite*: os bancos encontrados;
+  - *Evidence & hashes*: o manifesto de evidências;
+  - *Limitations* e *Errors*: o que não pôde ser feito.
+- **`reports/report.json`** traz tudo em formato estruturado, para integrar com outras ferramentas.
+- **`reports/csv/`** tem um CSV por tipo de artefato, mais a timeline, os achados e o manifesto, para usar
+  em planilhas.
+- **`reports/report.md`** é um resumo em Markdown, para colar em laudos e tickets.
+
+Como interpretar:
+- **Classe da evidência:** *observado* foi lido de um registro ativo; *recuperado* foi reconstruído de dados
+  excluídos (confira a origem em `details.region`); *inferido* é uma conclusão por correlação.
+- **Gravidade dos achados:** `high`, `medium`, `low` ou `info`. Achados de gravidade *medium* (limpeza de
+  histórico, registros recuperados, extensões instaladas fora da loja, downloads perigosos) costumam merecer
+  atenção primeiro.
+- **Proveniência:** cada registro aponta o arquivo de evidência, o SHA-256 dele e a localização exata (tabela
+  e linha, ou offset).
+
+### 6. Explore a linha do tempo
+
+```bash
+# tudo de um dia
+./BrowserForensics-X.sh timeline -c ./casos/IMG01 --since 2024-03-15 --until 2024-03-15
+
+# um domínio e seus subdomínios, de um navegador
+./BrowserForensics-X.sh timeline -c ./casos/IMG01 --domain google.com --browser chrome
+
+# só o que foi recuperado, exportado para CSV
+./BrowserForensics-X.sh timeline -c ./casos/IMG01 --class recovered --format csv > recuperados.csv
+
+# relatório filtrado (vai para reports/filtered_<data>/)
+./BrowserForensics-X.sh report -c ./casos/IMG01 --type download,recovered_url --since 2024-03-01
+```
+
+As datas são sempre em **UTC**. Uma data sem hora (`2024-03-15`) cobre o dia inteiro. Para um fuso
+específico, informe o deslocamento (`2024-03-15T09:00:00-03:00`).
+
+### 7. Verifique e entregue
+
+```bash
+./BrowserForensics-X.sh verify -c ./casos/IMG01
+```
+
+O `verify` refaz o hash de todas as cópias e confere o manifesto, a cadeia do `audit.log` e os relatórios.
+Termina com **INTEGRITY VERIFIED** (código `0`) ou **INTEGRITY FAILURE** (código `4`). Rode antes de
+entregar o caso, e peça para quem recebe rodar também.
+
+<details>
+<summary><b>Solução de problemas</b></summary>
+
+| Situação | O que fazer |
+|---|---|
+| `requires bash >= 4.4` | No macOS: `brew install bash` e execute com `/opt/homebrew/bin/bash` (ou `/usr/local/bin/bash`). |
+| `Python >= 3.8 ... is required` | Instale o Python 3 ou indique o caminho com `BFX_PYTHON=/caminho/python3`. Aquisição e verificação funcionam sem ele. |
+| Muitos `unreadable` / `copy-failed` no Windows | O navegador estava aberto. Feche-o e refaça a coleta num diretório de caso novo, ou colete a partir de uma imagem ou snapshot VSS. |
+| Safari "ilegível" no macOS | Dê Acesso Total ao Disco ao app do terminal e reabra-o. |
+| `case directory must be new or empty` | Use outro `-c`. A ferramenta nunca grava evidência por cima de outro caso. |
+| `case is locked` | Outra execução está usando o caso. Se ela travou, remova a pasta `<caso>/.lock`. |
+| Não consigo apagar a pasta do caso | A evidência fica somente leitura de propósito. Para descartar: `chmod -R u+w <caso> && rm -rf <caso>`. |
+| Preciso ver os valores mascarados | Rode `analyze --no-redact` e depois `report` (fica registrado no `audit.log`). Os valores originais sempre ficam intactos em `evidence/`. |
+| Saída com caracteres estranhos | Use `BFX_ASCII=1` (glifos ASCII) ou `--no-color`. |
+| Terminou com código `5` | Resultado parcial: veja a seção *Errors* do relatório e o `errors.jsonl` do caso. |
+
+</details>
 
 <br>
 
