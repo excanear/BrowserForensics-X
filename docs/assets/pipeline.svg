@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-label="BrowserForensics-X pipeline: discover, acquire, analyze, correlate, report, with an integrity rail">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070b16"/><stop offset="1" stop-color="#0b1120"/></linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee"/><stop offset=".5" stop-color="#a78bfa"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+    <style>
+      .sans{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+      .t{font-size:19px;font-weight:700;fill:#f1f5f9}
+      .k{font-size:11.5px;font-weight:700;letter-spacing:2px}
+      .b{font-size:13.5px;fill:#94a3b8}
+      @keyframes flow{to{stroke-dashoffset:-24}}
+      .flow{stroke-dasharray:6 6;animation:flow 1.2s linear infinite}
+      @media (prefers-reduced-motion:reduce){.flow{animation:none}}
+    </style>
+  </defs>
+  <rect width="1280" height="520" rx="18" fill="url(#bg)" stroke="#1e293b"/>
+  <text x="48" y="58" class="sans k" fill="#64748b">PIPELINE</text>
+  <text x="48" y="88" class="sans" font-size="24" font-weight="800" fill="#f1f5f9">From live system or image to a court-ready case</text>
+
+  <g class="sans">
+    <!-- stage template: 224 wide, gap 22 -->
+    <g transform="translate(48 120)">
+      <rect width="218" height="250" rx="14" fill="#0f172a" stroke="#1e293b"/>
+      <rect width="218" height="4" rx="2" fill="#22d3ee"/>
+      <circle cx="30" cy="38" r="15" fill="#22d3ee" fill-opacity=".15" stroke="#22d3ee"/><text x="30" y="43" text-anchor="middle" font-size="14" font-weight="800" fill="#22d3ee">1</text>
+      <text x="56" y="44" class="t">Discover</text>
+      <text x="20" y="84" class="b">70+ known install paths</text>
+      <text x="20" y="108" class="b">Linux · Windows · macOS</text>
+      <text x="20" y="132" class="b">signature scan (--deep)</text>
+      <text x="20" y="156" class="b">explicit --source dirs</text>
+      <text x="20" y="180" class="b">running-browser check</text>
+      <text x="20" y="228" class="mono" font-size="12" fill="#22d3ee">profiles.tsv</text>
+    </g>
+    <g transform="translate(290 120)">
+      <rect width="218" height="250" rx="14" fill="#0f172a" stroke="#1e293b"/>
+      <rect width="218" height="4" rx="2" fill="#5eb5f7"/>
+      <circle cx="30" cy="38" r="15" fill="#60a5fa" fill-opacity=".15" stroke="#60a5fa"/><text x="30" y="43" text-anchor="middle" font-size="14" font-weight="800" fill="#60a5fa">2</text>
+      <text x="56" y="44" class="t">Acquire</text>
+      <text x="20" y="84" class="b">read-only sources</text>
+      <text x="20" y="108" class="b">SHA-256 source + copy</text>
+      <text x="20" y="132" class="b">stat times preserved</text>
+      <text x="20" y="156" class="b">WAL / SHM / journals</text>
+      <text x="20" y="180" class="b">locked files recorded</text>
+      <text x="20" y="228" class="mono" font-size="12" fill="#60a5fa">evidence/ + manifest</text>
+    </g>
+    <g transform="translate(532 120)">
+      <rect width="218" height="250" rx="14" fill="#0f172a" stroke="#1e293b"/>
+      <rect width="218" height="4" rx="2" fill="#a78bfa"/>
+      <circle cx="30" cy="38" r="15" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa"/><text x="30" y="43" text-anchor="middle" font-size="14" font-weight="800" fill="#a78bfa">3</text>
+      <text x="56" y="44" class="t">Analyze</text>
+      <text x="20" y="84" class="b">SQLite · LevelDB · SNSS</text>
+      <text x="20" y="108" class="b">mozLz4 · plist · caches</text>
+      <text x="20" y="132" class="b">deleted-record carving</text>
+      <text x="20" y="156" class="b">parallel workers (-j)</text>
+      <text x="20" y="180" class="b">redaction by default</text>
+      <text x="20" y="228" class="mono" font-size="12" fill="#a78bfa">records.jsonl</text>
+    </g>
+    <g transform="translate(774 120)">
+      <rect width="218" height="250" rx="14" fill="#0f172a" stroke="#1e293b"/>
+      <rect width="218" height="4" rx="2" fill="#d17fe0"/>
+      <circle cx="30" cy="38" r="15" fill="#d17fe0" fill-opacity=".15" stroke="#d17fe0"/><text x="30" y="43" text-anchor="middle" font-size="14" font-weight="800" fill="#d17fe0">4</text>
+      <text x="56" y="44" class="t">Correlate</text>
+      <text x="20" y="84" class="b">unified UTC timeline</text>
+      <text x="20" y="108" class="b">downloads ↔ OS ↔ disk</text>
+      <text x="20" y="132" class="b">inconsistency checks</text>
+      <text x="20" y="156" class="b">observed / recovered /</text>
+      <text x="20" y="180" class="b">inferred classification</text>
+      <text x="20" y="228" class="mono" font-size="12" fill="#d17fe0">timeline · findings</text>
+    </g>
+    <g transform="translate(1016 120)">
+      <rect width="218" height="250" rx="14" fill="#0f172a" stroke="#1e293b"/>
+      <rect width="218" height="4" rx="2" fill="#f472b6"/>
+      <circle cx="30" cy="38" r="15" fill="#f472b6" fill-opacity=".15" stroke="#f472b6"/><text x="30" y="43" text-anchor="middle" font-size="14" font-weight="800" fill="#f472b6">5</text>
+      <text x="56" y="44" class="t">Report</text>
+      <text x="20" y="84" class="b">HTML (offline, CSP)</text>
+      <text x="20" y="108" class="b">JSON · CSV · Markdown</text>
+      <text x="20" y="132" class="b">filters: time, domain,</text>
+      <text x="20" y="156" class="b">profile, type, class</text>
+      <text x="20" y="180" class="b">reports SHA-256 sealed</text>
+      <text x="20" y="228" class="mono" font-size="12" fill="#f472b6">reports/</text>
+    </g>
+  </g>
+  <g stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arr)">
+    <path class="flow" d="M268 245H286"/><path class="flow" d="M510 245H528"/><path class="flow" d="M752 245H770"/><path class="flow" d="M994 245H1012"/>
+  </g>
+
+  <!-- integrity rail -->
+  <g class="sans">
+    <rect x="48" y="398" width="1186" height="80" rx="14" fill="#0b1222" stroke="#1e293b"/>
+    <rect x="48" y="398" width="1186" height="3" rx="1.5" fill="url(#rail)"/>
+    <text x="72" y="432" class="k" fill="#64748b">INTEGRITY RAIL · EVERY STAGE</text>
+    <g font-size="14.5" fill="#cbd5e1">
+      <circle cx="78" cy="455" r="4" fill="#22d3ee"/><text x="90" y="460">SHA-256 source ⇄ copy</text>
+      <circle cx="290" cy="455" r="4" fill="#60a5fa"/><text x="302" y="460">sealed manifest + SHA256SUMS</text>
+      <circle cx="540" cy="455" r="4" fill="#a78bfa"/><text x="552" y="460">hash-chained audit log</text>
+      <circle cx="746" cy="455" r="4" fill="#d17fe0"/><text x="758" y="460">case lock · trap cleanup</text>
+      <circle cx="950" cy="455" r="4" fill="#f472b6"/><text x="962" y="460"><tspan class="mono" fill="#f9a8d4">verify</tspan> detects any change</text>
+    </g>
+  </g>
+</svg>

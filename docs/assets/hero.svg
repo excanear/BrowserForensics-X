@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="BrowserForensics-X — evidence-grade browser forensics in a single Bash file">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#060a14"/>
+      <stop offset=".55" stop-color="#0a1224"/>
+      <stop offset="1" stop-color="#0d0b1f"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset=".55" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#a78bfa" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#f472b6" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#1e293b" stroke-width="1" opacity=".55"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="gridmask"><rect width="1280" height="420" fill="url(#fade)"/></mask>
+    <linearGradient id="scan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#22d3ee" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="card"><rect x="792" y="70" width="430" height="282" rx="14"/></clipPath>
+    <style>
+      .sans{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+      @keyframes scan{0%{transform:translateY(-90px)}100%{transform:translateY(300px)}}
+      @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+      @keyframes caret{0%,49%{opacity:1}50%,100%{opacity:0}}
+      .scan{animation:scan 4.5s linear infinite}
+      .pulse{animation:pulse 2.4s ease-in-out infinite}
+      .caret{animation:caret 1.1s step-end infinite}
+      @media (prefers-reduced-motion:reduce){.scan,.pulse,.caret{animation:none}}
+    </style>
+  </defs>
+
+  <rect width="1280" height="420" fill="url(#bg)"/>
+  <rect width="1280" height="420" fill="url(#grid)" mask="url(#gridmask)"/>
+  <circle cx="230" cy="90" r="260" fill="url(#glowA)"/>
+  <circle cx="1040" cy="330" r="300" fill="url(#glowB)"/>
+  <rect x="0" y="0" width="1280" height="2" fill="url(#edge)"/>
+  <rect x="0" y="418" width="1280" height="2" fill="url(#edge)"/>
+
+  <!-- mark -->
+  <g transform="translate(72 92)">
+    <rect width="64" height="64" rx="16" fill="#0f172a" stroke="url(#brand)" stroke-width="2"/>
+    <path d="M18 20h14a8 8 0 0 1 0 16H18zM18 36h16a8 8 0 0 1 0 16H18z" fill="none" stroke="#22d3ee" stroke-width="3.2" stroke-linejoin="round" transform="translate(0 -4)"/>
+    <path d="M40 18l12 28M52 18L40 46" stroke="#f472b6" stroke-width="3.2" stroke-linecap="round" transform="translate(-1 0)"/>
+  </g>
+  <text x="152" y="122" class="sans" font-size="15" letter-spacing="3" fill="#64748b" font-weight="600">DFIR · BROWSER FORENSICS TOOLKIT</text>
+  <text x="150" y="152" class="sans" font-size="20" fill="#94a3b8">v1.0.0 · single-file Bash · Linux · Windows · macOS</text>
+
+  <text x="70" y="236" class="sans" font-size="66" font-weight="800" fill="#f1f5f9" letter-spacing="-1.5">BrowserForensics<tspan fill="url(#brand)">-X</tspan></text>
+  <text x="72" y="280" class="sans" font-size="22" fill="#cbd5e1">Evidence-grade acquisition, recovery and correlation</text>
+  <text x="72" y="309" class="sans" font-size="22" fill="#cbd5e1">of <tspan fill="#22d3ee" font-weight="700">Chromium</tspan>, <tspan fill="#fb923c" font-weight="700">Gecko</tspan> and <tspan fill="#60a5fa" font-weight="700">WebKit</tspan> browser artifacts.</text>
+
+  <!-- chips -->
+  <g class="sans" font-size="14" font-weight="600">
+    <g transform="translate(72 344)">
+      <rect width="216" height="34" rx="17" fill="#0f172a" stroke="#22d3ee" stroke-opacity=".45"/>
+      <circle cx="20" cy="17" r="4" fill="#22d3ee"/><text x="34" y="22" fill="#a5f3fc">SHA-256 chain of custody</text>
+    </g>
+    <g transform="translate(300 344)">
+      <rect width="204" height="34" rx="17" fill="#0f172a" stroke="#a78bfa" stroke-opacity=".45"/>
+      <circle cx="20" cy="17" r="4" fill="#a78bfa"/><text x="34" y="22" fill="#ddd6fe">Deleted-record recovery</text>
+    </g>
+    <g transform="translate(516 344)">
+      <rect width="184" height="34" rx="17" fill="#0f172a" stroke="#f472b6" stroke-opacity=".45"/>
+      <circle cx="20" cy="17" r="4" fill="#f472b6"/><text x="34" y="22" fill="#fbcfe8">Unified UTC timeline</text>
+    </g>
+  </g>
+
+  <!-- terminal card -->
+  <g>
+    <rect x="792" y="70" width="430" height="282" rx="14" fill="#0b1222" stroke="#1e293b"/>
+    <rect x="792" y="70" width="430" height="36" rx="14" fill="#111a2e"/>
+    <rect x="792" y="92" width="430" height="14" fill="#111a2e"/>
+    <circle cx="814" cy="88" r="5.5" fill="#f87171"/><circle cx="832" cy="88" r="5.5" fill="#fbbf24"/><circle cx="850" cy="88" r="5.5" fill="#34d399"/>
+    <text x="1007" y="92" class="sans" font-size="12" fill="#64748b" text-anchor="middle">case INC-2026-0042</text>
+    <g class="mono" font-size="13.5">
+      <text x="812" y="134" fill="#64748b">$ <tspan fill="#e2e8f0">./BrowserForensics-X.sh run -c ./case</tspan></text>
+      <rect x="812" y="149" width="36" height="18" rx="3" fill="#22d3ee"/><text x="830" y="162" fill="#0f172a" font-weight="700" text-anchor="middle">2/4</text>
+      <text x="858" y="162" fill="#f1f5f9" font-weight="700">Acquisition</text>
+      <text x="812" y="188" fill="#34d399">✔ <tspan fill="#cbd5e1">74 files acquired and verified</tspan></text>
+      <text x="812" y="210" fill="#34d399">✔ <tspan fill="#cbd5e1">manifest sealed · read-only</tspan></text>
+      <rect x="812" y="225" width="36" height="18" rx="3" fill="#22d3ee"/><text x="830" y="238" fill="#0f172a" font-weight="700" text-anchor="middle">3/4</text>
+      <text x="858" y="238" fill="#f1f5f9" font-weight="700">Analysis</text>
+      <text x="812" y="264" fill="#a78bfa">◆ <tspan fill="#cbd5e1">Parsing profiles</tspan></text>
+      <rect x="958" y="256" width="150" height="3" rx="1.5" fill="#1e293b"/>
+      <rect x="958" y="256" width="112" height="3" rx="1.5" fill="url(#brand)"/>
+      <text x="1118" y="264" fill="#f1f5f9" font-weight="700">76%</text>
+      <text x="812" y="290" fill="#fbbf24">● <tspan fill="#cbd5e1">3 recovered · 27 findings</tspan></text>
+      <text x="812" y="320" fill="#34d399" font-weight="700">✔ Case ready <tspan fill="#64748b" font-weight="400">in 26s</tspan><tspan class="caret" fill="#22d3ee"> ▍</tspan></text>
+    </g>
+    <g clip-path="url(#card)"><rect class="scan" x="792" y="70" width="430" height="90" fill="url(#scan)"/></g>
+    <circle class="pulse" cx="1198" cy="88" r="4" fill="#34d399"/>
+  </g>
+</svg>
