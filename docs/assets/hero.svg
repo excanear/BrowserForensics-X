@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="BrowserForensics-X — evidence-grade browser forensics in a single Bash file">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="BrowserForensics-X — forense de navegadores com rigor probatório em um único arquivo Bash">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#060a14"/>
@@ -63,26 +63,26 @@
     <path d="M18 20h14a8 8 0 0 1 0 16H18zM18 36h16a8 8 0 0 1 0 16H18z" fill="none" stroke="#22d3ee" stroke-width="3.2" stroke-linejoin="round" transform="translate(0 -4)"/>
     <path d="M40 18l12 28M52 18L40 46" stroke="#f472b6" stroke-width="3.2" stroke-linecap="round" transform="translate(-1 0)"/>
   </g>
-  <text x="152" y="122" class="sans" font-size="15" letter-spacing="3" fill="#64748b" font-weight="600">DFIR · BROWSER FORENSICS TOOLKIT</text>
-  <text x="150" y="152" class="sans" font-size="20" fill="#94a3b8">v1.0.0 · single-file Bash · Linux · Windows · macOS</text>
+  <text x="152" y="122" class="sans" font-size="15" letter-spacing="3" fill="#64748b" font-weight="600">DFIR · FORENSE DE NAVEGADORES</text>
+  <text x="150" y="152" class="sans" font-size="20" fill="#94a3b8">v1.0.0 · arquivo Bash único · Linux · Windows · macOS</text>
 
   <text x="70" y="236" class="sans" font-size="66" font-weight="800" fill="#f1f5f9" letter-spacing="-1.5">BrowserForensics<tspan fill="url(#brand)">-X</tspan></text>
-  <text x="72" y="280" class="sans" font-size="22" fill="#cbd5e1">Evidence-grade acquisition, recovery and correlation</text>
-  <text x="72" y="309" class="sans" font-size="22" fill="#cbd5e1">of <tspan fill="#22d3ee" font-weight="700">Chromium</tspan>, <tspan fill="#fb923c" font-weight="700">Gecko</tspan> and <tspan fill="#60a5fa" font-weight="700">WebKit</tspan> browser artifacts.</text>
+  <text x="72" y="280" class="sans" font-size="22" fill="#cbd5e1">Aquisição, recuperação e correlação com rigor probatório</text>
+  <text x="72" y="309" class="sans" font-size="22" fill="#cbd5e1">de artefatos <tspan fill="#22d3ee" font-weight="700">Chromium</tspan>, <tspan fill="#fb923c" font-weight="700">Gecko</tspan> e <tspan fill="#60a5fa" font-weight="700">WebKit</tspan>.</text>
 
   <!-- chips -->
   <g class="sans" font-size="14" font-weight="600">
     <g transform="translate(72 344)">
-      <rect width="216" height="34" rx="17" fill="#0f172a" stroke="#22d3ee" stroke-opacity=".45"/>
-      <circle cx="20" cy="17" r="4" fill="#22d3ee"/><text x="34" y="22" fill="#a5f3fc">SHA-256 chain of custody</text>
+      <rect width="230" height="34" rx="17" fill="#0f172a" stroke="#22d3ee" stroke-opacity=".45"/>
+      <circle cx="20" cy="17" r="4" fill="#22d3ee"/><text x="34" y="22" fill="#a5f3fc">Cadeia de custódia SHA-256</text>
     </g>
-    <g transform="translate(300 344)">
-      <rect width="204" height="34" rx="17" fill="#0f172a" stroke="#a78bfa" stroke-opacity=".45"/>
-      <circle cx="20" cy="17" r="4" fill="#a78bfa"/><text x="34" y="22" fill="#ddd6fe">Deleted-record recovery</text>
+    <g transform="translate(314 344)">
+      <rect width="216" height="34" rx="17" fill="#0f172a" stroke="#a78bfa" stroke-opacity=".45"/>
+      <circle cx="20" cy="17" r="4" fill="#a78bfa"/><text x="34" y="22" fill="#ddd6fe">Recupera dados excluídos</text>
     </g>
-    <g transform="translate(516 344)">
-      <rect width="184" height="34" rx="17" fill="#0f172a" stroke="#f472b6" stroke-opacity=".45"/>
-      <circle cx="20" cy="17" r="4" fill="#f472b6"/><text x="34" y="22" fill="#fbcfe8">Unified UTC timeline</text>
+    <g transform="translate(542 344)">
+      <rect width="204" height="34" rx="17" fill="#0f172a" stroke="#f472b6" stroke-opacity=".45"/>
+      <circle cx="20" cy="17" r="4" fill="#f472b6"/><text x="34" y="22" fill="#fbcfe8">Linha do tempo em UTC</text>
     </g>
   </g>
 
@@ -92,7 +92,7 @@
     <rect x="792" y="70" width="430" height="36" rx="14" fill="#111a2e"/>
     <rect x="792" y="92" width="430" height="14" fill="#111a2e"/>
     <circle cx="814" cy="88" r="5.5" fill="#f87171"/><circle cx="832" cy="88" r="5.5" fill="#fbbf24"/><circle cx="850" cy="88" r="5.5" fill="#34d399"/>
-    <text x="1007" y="92" class="sans" font-size="12" fill="#64748b" text-anchor="middle">case INC-2026-0042</text>
+    <text x="1007" y="92" class="sans" font-size="12" fill="#64748b" text-anchor="middle">caso INC-2026-0042</text>
     <g class="mono" font-size="13.5">
       <text x="812" y="134" fill="#64748b">$ <tspan fill="#e2e8f0">./BrowserForensics-X.sh run -c ./case</tspan></text>
       <rect x="812" y="149" width="36" height="18" rx="3" fill="#22d3ee"/><text x="830" y="162" fill="#0f172a" font-weight="700" text-anchor="middle">2/4</text>
